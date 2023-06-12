@@ -18,12 +18,12 @@ public class MainController {
     private JdbcTemplate jdbcTemplate;
 
     @PostMapping(path="/add")
-    public @ResponseBody String addMascota (@RequestParam String nombreMascota
-            , @RequestParam String nombreDueño) {
+    public @ResponseBody String addMascota (@RequestParam String nombre, @RequestParam String raza, @RequestParam String propietario) {
 
         Mascota m = new Mascota();
-        m.setNombreMascota(nombreMascota);
-        m.setNombreDueno(nombreDueño);
+        m.setNombre(nombre);
+        m.setRaza(raza);
+        m.setPropietario(propietario);
         mascotaRepository.save(m);
         return "Mascota Guardada";
     }
@@ -33,11 +33,12 @@ public class MainController {
         return mascotaRepository.findAll();
     }
     @PutMapping(path="/edit")
-    public @ResponseBody String editMascota(@RequestParam Integer id, @RequestParam String nombreMascota, @RequestParam String nombreDueño) {
+    public @ResponseBody String editMascota(@RequestParam Integer id, @RequestParam String nombre, @RequestParam String raza, @RequestParam String propietario) {
         Mascota mascota = mascotaRepository.findById(id).orElse(null);
         if (mascota != null) {
-            mascota.setNombreMascota(nombreMascota);
-            mascota.setNombreDueno(nombreDueño);
+            mascota.setNombre(nombre);
+            mascota.setRaza(raza);
+            mascota.setPropietario(propietario);
             mascotaRepository.save(mascota);
             return "Mascota Editada Correctamente";
         }
@@ -60,7 +61,7 @@ public class MainController {
 
     @GetMapping(path="/get/report")
     public @ResponseBody List getReport() {
-        String sql = "SELECT CONCAT('Nombre de Mascota: 'nombreMascota, ', Nombre de dueño: ', nombreDueno) as reporte FROM mascota";
+        String sql = "SELECT CONCAT('Nombre de Mascota: ',nombre, ', Raza: ', raza, ', Propietario: ',propietario) as reporte FROM mascota";
         List<Map<String, Object>> queryResult = jdbcTemplate.queryForList(sql);
         return queryResult;
     }

@@ -7,12 +7,13 @@ import jakarta.persistence.Id;
 @Entity
 public class Mascota {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String nombreMascota;
+    private String nombre;
 
-    private String nombreDueno;
+    private String raza;
+    private String propietario;
 
     public Integer getId() {
         return id;
@@ -22,20 +23,28 @@ public class Mascota {
         this.id = id;
     }
 
-    public String getNombreMascota() {
-        return nombreMascota;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreMascota(String nombreMascota) {
-        this.nombreMascota = nombreMascota;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNombreDueno() {
-        return nombreDueno;
+    public String getRaza() {
+        return raza;
     }
 
-    public void setNombreDueno(String nombreDueño) {
-        this.nombreDueno = nombreDueño;
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
+    public String getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(String propietario) {
+        this.propietario = propietario;
     }
 }
 
